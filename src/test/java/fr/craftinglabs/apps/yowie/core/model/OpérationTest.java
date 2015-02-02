@@ -39,4 +39,21 @@ public class OpérationTest {
         
         assertEquals(date, opération.date());
     }
+    
+    @Test public void 
+    should_set_an_id_when_created_without() {
+        LocalDate date = LocalDate.parse("2014-11-17");
+        Opération opération = new Opération(date, 1200, "le libellé de l'opération");
+        
+        assertThat(opération.id(), is(not(0)));
+    }
+    
+    @Test public void 
+    should_set_different_id_when_created_without() {
+        LocalDate date = LocalDate.parse("2014-11-17");
+        Opération opération = new Opération(date, 1200, "le libellé de l'opération");
+        Opération anotherOpération = new Opération(date, 1500, "un autre libellé");
+        
+        assertThat(opération.id(), is(not(anotherOpération.id())));
+    }
 }
