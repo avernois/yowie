@@ -1,8 +1,8 @@
 package fr.craftinglabs.apps.yowie.httpapi.routing;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.when;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import java.time.LocalDate;
 
@@ -29,5 +29,12 @@ public class OpérationResourceTest {
         when(service.get(2)).thenReturn(opération);
         
         assertThat(resource.getOpérationByIdAsJSON("2"), is(OpérationToJSON.parse(opération)));
+    }
+    
+    @Test public void 
+    should_create_opération() {
+        resource.createOpération("{\"date\":\"2014-11-17\",\"libellé\":\"libellé\",\"montant\":1400}");
+        
+        verify(service).create(LocalDate.parse("2014-11-17"), 1400, "libellé");
     }
 }
