@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import org.json.JSONObject;
 
 import fr.craftinglabs.apps.yowie.core.infrastructure.parsers.OpérationToJSON;
+import fr.craftinglabs.apps.yowie.core.model.Opération;
 import fr.craftinglabs.apps.yowie.core.model.OpérationService;
 
 @Path("/opérations")
@@ -29,10 +30,13 @@ public class OpérationResource {
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void createOpération(String JSONparams) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public String createOpération(String JSONparams) {
         CreateOpérationParameters params = new CreateOpérationParameters(JSONparams);
         
-        service.create(params.date(), params.montant(), params.libellé());
+        Opération opération = service.create(params.date(), params.montant(), params.libellé());
+        
+        return OpérationToJSON.parse(opération);
     }
     
     private class CreateOpérationParameters {

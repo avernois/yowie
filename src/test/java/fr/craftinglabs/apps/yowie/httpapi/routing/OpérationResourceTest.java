@@ -33,8 +33,24 @@ public class OpérationResourceTest {
     
     @Test public void 
     should_create_opération() {
+        Opération opération = new Opération(LocalDate.parse("2014-11-17"), 1400, "libellé");
+        when(service.create(LocalDate.parse("2014-11-17"), 1400, "libellé")).thenReturn(opération);
+        
         resource.createOpération("{\"date\":\"2014-11-17\",\"libellé\":\"libellé\",\"montant\":1400}");
         
         verify(service).create(LocalDate.parse("2014-11-17"), 1400, "libellé");
+    }
+    
+    @Test public void 
+    should_return_created_opération_as_JSON_on_creation() {
+        Opération opération = new Opération(LocalDate.parse("2014-11-17"), 1400, "libellé");
+        when(service.create(LocalDate.parse("2014-11-17"), 1400, "libellé")).thenReturn(opération);
+        
+        String JSONOpération = resource.createOpération("{\"date\":\"2014-11-17\",\"libellé\":\"libellé\",\"montant\":1400}");
+        
+        assertThat(JSONOpération, containsString("\"id\":"));
+        assertThat(JSONOpération, containsString("\"date\":\"2014-11-17\""));
+        assertThat(JSONOpération, containsString("\"libellé\":\"libellé\""));
+        assertThat(JSONOpération, containsString("\"montant\":1400"));
     }
 }
