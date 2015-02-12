@@ -1,8 +1,8 @@
 package fr.craftinglabs.apps.yowie.httpapi.routing;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.when;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import java.time.LocalDate;
 
@@ -29,5 +29,28 @@ public class OpérationResourceTest {
         when(service.get(2)).thenReturn(opération);
         
         assertThat(resource.getOpérationByIdAsJSON("2"), is(OpérationToJSON.parse(opération)));
+    }
+    
+    @Test public void 
+    should_create_opération() {
+        Opération opération = new Opération(LocalDate.parse("2014-11-17"), 1400, "libellé");
+        when(service.create(LocalDate.parse("2014-11-17"), 1400, "libellé")).thenReturn(opération);
+        
+        resource.createOpération("{\"date\":\"2014-11-17\",\"libellé\":\"libellé\",\"montant\":1400}");
+        
+        verify(service).create(LocalDate.parse("2014-11-17"), 1400, "libellé");
+    }
+    
+    @Test public void 
+    should_return_created_opération_as_JSON_on_creation() {
+        Opération opération = new Opération(LocalDate.parse("2014-11-17"), 1400, "libellé");
+        when(service.create(LocalDate.parse("2014-11-17"), 1400, "libellé")).thenReturn(opération);
+        
+        String JSONOpération = resource.createOpération("{\"date\":\"2014-11-17\",\"libellé\":\"libellé\",\"montant\":1400}");
+        
+        assertThat(JSONOpération, containsString("\"id\":"));
+        assertThat(JSONOpération, containsString("\"date\":\"2014-11-17\""));
+        assertThat(JSONOpération, containsString("\"libellé\":\"libellé\""));
+        assertThat(JSONOpération, containsString("\"montant\":1400"));
     }
 }

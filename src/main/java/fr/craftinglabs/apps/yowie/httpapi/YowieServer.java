@@ -7,11 +7,8 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.ws.rs.ext.ContextResolver;
-
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
-import org.glassfish.jersey.moxy.json.MoxyJsonConfig;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import fr.craftinglabs.apps.yowie.httpapi.infrastructure.InjectionBinder;
@@ -44,15 +41,8 @@ public class YowieServer {
             final Map<String, String> namespacePrefixMapper = new HashMap<String, String>();
             namespacePrefixMapper.put("http://www.w3.org/2001/XMLSchema-instance", "xsi");
              
-            final MoxyJsonConfig moxyJsonConfig = new MoxyJsonConfig()
-                        .setNamespacePrefixMapper(namespacePrefixMapper)
-                        .setNamespaceSeparator(':');
-             
-            final ContextResolver<MoxyJsonConfig> jsonConfigResolver = moxyJsonConfig.resolver();
-            
             return new ResourceConfig()
                         .packages("fr.craftinglabs.apps.yowie.httpapi")
-                        .register(jsonConfigResolver)
                         .register(new InjectionBinder());
     }
 }
