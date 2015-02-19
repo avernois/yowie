@@ -22,10 +22,11 @@ public class OpérationServiceTest {
     
     @Test public void 
     should_return_an_opération_given_its_id() {
-        Opération opération = new Opération(2, LocalDate.parse("2014-11-17"), 1200, "libellé");
-        when(opérations.get(2)).thenReturn(opération);
+        OpérationId id = OpérationId.valueOf(2);
+        Opération opération = new Opération(id, LocalDate.parse("2014-11-17"), 1200, "libellé");
+        when(opérations.get(id)).thenReturn(opération);
         
-        assertThat(service.get(2), is(opération));
+        assertThat(service.get(id), is(opération));
     }
     
     @Test public void 

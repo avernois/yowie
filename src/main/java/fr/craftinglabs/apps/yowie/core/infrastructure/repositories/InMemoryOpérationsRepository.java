@@ -4,17 +4,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import fr.craftinglabs.apps.yowie.core.model.Opération;
+import fr.craftinglabs.apps.yowie.core.model.OpérationId;
 import fr.craftinglabs.apps.yowie.core.model.Opérations;
 
 public class InMemoryOpérationsRepository implements Opérations {
 
-    static private Map<Integer, Opération> opérations = new HashMap<Integer, Opération>();
-        
+    static private Map<OpérationId, Opération> opérations = new HashMap<OpérationId, Opération>();
+
     @Override
-    public Opération get(int id) {
+    public Opération get(OpérationId id) {
         return opérations.get(id);
     }
-
+    
     @Override
     public void store(Opération opération) {
         opérations.put(opération.id(), opération);

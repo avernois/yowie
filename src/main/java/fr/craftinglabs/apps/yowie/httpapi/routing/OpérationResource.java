@@ -15,6 +15,7 @@ import org.json.JSONObject;
 
 import fr.craftinglabs.apps.yowie.core.infrastructure.parsers.OpérationToJSON;
 import fr.craftinglabs.apps.yowie.core.model.Opération;
+import fr.craftinglabs.apps.yowie.core.model.OpérationId;
 import fr.craftinglabs.apps.yowie.core.model.OpérationService;
 
 @Path("/opérations")
@@ -25,7 +26,7 @@ public class OpérationResource {
     @GET @Path("/{operationId}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getOpérationByIdAsJSON(@PathParam("operationId") String operationId) {
-        return OpérationToJSON.parse(service.get(Integer.parseInt(operationId)));
+        return OpérationToJSON.parse(service.get(OpérationId.valueOf(operationId)));
     }
     
     @POST
