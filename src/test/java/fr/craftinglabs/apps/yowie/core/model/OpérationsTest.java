@@ -22,10 +22,11 @@ abstract public class OpérationsTest {
     
     @Test public void 
     should_store_and_get_by_id_an_opération() {
-        Opération opération = new Opération(2, LocalDate.parse("2014-11-17"), 1200, "libellé");
+        OpérationId id = OpérationId.valueOf(2);
+        Opération opération = new Opération(id, LocalDate.parse("2014-11-17"), 1200, "libellé");
         opérations.store(opération);
         
-        Opération actual = opérations.get(2);
+        Opération actual = opérations.get(id);
         
         assertThat(actual, is(opération));
     }

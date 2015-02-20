@@ -8,7 +8,7 @@ public class OpérationService {
 
     @Inject Opérations opérations;
 
-    public Opération get(int id) {
+    public Opération get(OpérationId id) {
         return opérations.get(id);
     }
 

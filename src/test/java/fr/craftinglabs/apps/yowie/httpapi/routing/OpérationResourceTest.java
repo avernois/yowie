@@ -14,6 +14,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import fr.craftinglabs.apps.yowie.core.infrastructure.parsers.OpérationToJSON;
 import fr.craftinglabs.apps.yowie.core.model.Opération;
+import fr.craftinglabs.apps.yowie.core.model.OpérationId;
 import fr.craftinglabs.apps.yowie.core.model.OpérationService;
 import fr.craftinglabs.apps.yowie.httpapi.routing.OpérationResource;
 
@@ -25,8 +26,8 @@ public class OpérationResourceTest {
     
     @Test public void 
     should_return_the_JSON_representation_of_an_existing_operation() {
-        Opération opération = new Opération(2, LocalDate.parse("2014-12-09"), 1200, "un libellé");
-        when(service.get(2)).thenReturn(opération);
+        Opération opération = new Opération(OpérationId.valueOf(2), LocalDate.parse("2014-12-09"), 1200, "un libellé");
+        when(service.get(OpérationId.valueOf(2))).thenReturn(opération);
         
         assertThat(resource.getOpérationByIdAsJSON("2"), is(OpérationToJSON.parse(opération)));
     }
