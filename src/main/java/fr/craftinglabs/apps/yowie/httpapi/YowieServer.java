@@ -1,39 +1,43 @@
 package fr.craftinglabs.apps.yowie.httpapi;
 
-import java.io.IOException;
+import fr.craftinglabs.apps.yowie.httpapi.infrastructure.InjectionBinder;
+import httpapi.infrastructure.Env;
+
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
-
-import fr.craftinglabs.apps.yowie.httpapi.infrastructure.InjectionBinder;
 
 /**
  * Main class.
  *
  */
 public class YowieServer {
-    public static final String BASE_URI = "http://localhost:8080/yowie/";
         
-    public static HttpServer startServer() {
-        return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), createApp());
+    private static final Integer DEFAULT_PORT = 5000;
+
+    public static HttpServer startServer(String hostname, Integer port, String appname) {
+        return GrizzlyHttpServerFactory.createHttpServer(URI.create(hostname + ":" + port + "/" + appname), createApp());
     }
 
-    public static void main(String[] args) {
-        try {
-            final HttpServer server = startServer();
+    public static void main(String[] args) throws InterruptedException {
+        
+        HttpServer server = startServer("http://0.0.0.0", Env.getPort(DEFAULT_PORT), "yowie");
+        
+        addShutdownHook(server);
+        Thread.currentThread().join();
+    }
 
-            System.out.println(String.format("Application started.%nHit enter to stop it..."));
-            System.in.read();
-            server.shutdownNow();
-        } catch (IOException ex) {
-            Logger.getLogger(YowieServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    private static void addShutdownHook(HttpServer server) {
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            @Override
+            public void run() {
+                server.shutdown();
+            }
+        }, "shutdownHook"));
     }
 
     public static ResourceConfig createApp() {
