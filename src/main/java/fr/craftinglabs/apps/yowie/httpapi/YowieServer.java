@@ -23,17 +23,21 @@ public class YowieServer {
         return GrizzlyHttpServerFactory.createHttpServer(URI.create(hostname + ":" + port + "/" + appname), createApp());
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         
-        try {
-            final HttpServer server = startServer("http://0.0.0.0", Env.getPort(DEFAULT_PORT), "yowie");
+        HttpServer server = startServer("http://0.0.0.0", Env.getPort(DEFAULT_PORT), "yowie");
+        
+        addShutdownHook(server);
+        Thread.currentThread().join();
+    }
 
-            System.out.println(String.format("Application started.%nHit enter to stop it..."));
-            System.in.read();
-            server.shutdownNow();
-        } catch (IOException ex) {
-            Logger.getLogger(YowieServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    private static void addShutdownHook(HttpServer server) {
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            @Override
+            public void run() {
+                server.shutdown();
+            }
+        }, "shutdownHook"));
     }
 
     public static ResourceConfig createApp() {
