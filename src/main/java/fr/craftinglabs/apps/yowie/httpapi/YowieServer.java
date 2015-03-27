@@ -1,5 +1,7 @@
 package fr.craftinglabs.apps.yowie.httpapi;
 
+import httpapi.infrastructure.Env;
+
 import java.io.IOException;
 import java.net.URI;
 import java.util.HashMap;
@@ -18,15 +20,17 @@ import fr.craftinglabs.apps.yowie.httpapi.infrastructure.InjectionBinder;
  *
  */
 public class YowieServer {
-    public static final String BASE_URI = "http://localhost:8080/yowie/";
         
-    public static HttpServer startServer() {
-        return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), createApp());
+    private static final Integer DEFAULT_PORT = 5000;
+
+    public static HttpServer startServer(String hostname, Integer port, String appname) {
+        return GrizzlyHttpServerFactory.createHttpServer(URI.create(hostname + ":" + port + "/" + appname), createApp());
     }
 
     public static void main(String[] args) {
+        
         try {
-            final HttpServer server = startServer();
+            final HttpServer server = startServer("http://localhost", Env.getPort(DEFAULT_PORT), "yowie");
 
             System.out.println(String.format("Application started.%nHit enter to stop it..."));
             System.in.read();
