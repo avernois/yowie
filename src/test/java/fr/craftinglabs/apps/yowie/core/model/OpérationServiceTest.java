@@ -1,24 +1,28 @@
 package fr.craftinglabs.apps.yowie.core.model;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.time.LocalDate;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OpérationServiceTest {
 
-    @Mock Opérations opérations;
-    @InjectMocks OpérationService service = new OpérationService();
+    Opérations opérations;
+    OpérationService service;
+
+    @Before
+    public void before() {
+        opérations = mock(Opérations.class);
+        service = new OpérationService(opérations);
+    }
     
     @Test public void 
     should_return_an_opération_given_its_id() {
