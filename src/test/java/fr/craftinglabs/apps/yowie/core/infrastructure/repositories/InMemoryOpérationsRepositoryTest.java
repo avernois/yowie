@@ -1,6 +1,5 @@
 package fr.craftinglabs.apps.yowie.core.infrastructure.repositories;
 
-import fr.craftinglabs.apps.yowie.core.infrastructure.repositories.InMemoryOpérationsRepository;
 import fr.craftinglabs.apps.yowie.core.model.Opérations;
 import fr.craftinglabs.apps.yowie.core.model.OpérationsTest;
 

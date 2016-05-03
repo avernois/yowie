@@ -1,15 +1,13 @@
 package fr.craftinglabs.apps.yowie.core.infrastructure.parsers;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import fr.craftinglabs.apps.yowie.core.model.Opération;
+import fr.craftinglabs.apps.yowie.core.model.OpérationId;
+import org.junit.Test;
 
 import java.time.LocalDate;
 
-import org.junit.Test;
-
-import fr.craftinglabs.apps.yowie.core.infrastructure.parsers.OpérationToJSON;
-import fr.craftinglabs.apps.yowie.core.model.Opération;
-import fr.craftinglabs.apps.yowie.core.model.OpérationId;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 public class OpérationToJSONTest {
 
