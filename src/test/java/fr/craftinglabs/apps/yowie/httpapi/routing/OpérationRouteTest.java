@@ -1,9 +1,7 @@
 package fr.craftinglabs.apps.yowie.httpapi.routing;
 
 import fr.craftinglabs.apps.yowie.core.infrastructure.parsers.OpérationToJSON;
-import fr.craftinglabs.apps.yowie.core.model.Opération;
-import fr.craftinglabs.apps.yowie.core.model.OpérationId;
-import fr.craftinglabs.apps.yowie.core.model.OpérationService;
+import fr.craftinglabs.apps.yowie.core.model.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -56,5 +54,17 @@ public class OpérationRouteTest {
         assertThat(JSONOpération, containsString("\"date\":\"2014-11-17\""));
         assertThat(JSONOpération, containsString("\"libellé\":\"libellé\""));
         assertThat(JSONOpération, containsString("\"montant\":1400"));
+    }
+
+    @Test public void 
+    should_add_a_ventilation_to_an_opération() {
+        Opération opération = new Opération(OpérationId.valueOf(2), LocalDate.parse("2014-11-17"), 1400, "libellé");
+        when(service.get(opération.id())).thenReturn(opération);
+        Ventilation ventilation = new Ventilation(VentilationId.next(), 600, "a_catégorie");
+        when(service.addVentilation(opération.id(), ventilation.montant(), ventilation.catégorie())).thenReturn(ventilation);
+
+        OpérationRoute.addVentilationToOpération(OpérationId.valueOf(2), "{\"montant\":600,\"catégorie\":\"a_catégorie\"}", service);
+
+        verify(service).addVentilation(OpérationId.valueOf("2"), 600, "a_catégorie");
     }
 }

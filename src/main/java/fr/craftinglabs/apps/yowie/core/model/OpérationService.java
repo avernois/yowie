@@ -20,5 +20,14 @@ public class OpérationService {
         opérations.store(opération);
         
         return opération;
-    } 
+    }
+
+    public Ventilation addVentilation(OpérationId id, int montant, String catégorie) {
+        Opération opération = opérations.get(id);
+        Ventilation ventilation = new Ventilation(VentilationId.next(), montant, catégorie);
+        opération.addVentilation(ventilation);
+        opérations.store(opération);
+
+        return ventilation;
+    }
 }
