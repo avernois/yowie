@@ -1,15 +1,12 @@
 package fr.craftinglabs.apps.yowie.core.model;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-
-import java.time.LocalDate;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.craftinglabs.apps.yowie.core.model.Opération;
-import fr.craftinglabs.apps.yowie.core.model.Opérations;
+import java.time.LocalDate;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 abstract public class OpérationsTest {
     

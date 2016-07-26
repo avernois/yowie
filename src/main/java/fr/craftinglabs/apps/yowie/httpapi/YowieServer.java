@@ -1,15 +1,13 @@
 package fr.craftinglabs.apps.yowie.httpapi;
 
-import fr.craftinglabs.apps.yowie.httpapi.infrastructure.InjectionBinder;
+import fr.craftinglabs.apps.yowie.core.infrastructure.repositories.InMemoryOpérationsRepository;
+import fr.craftinglabs.apps.yowie.core.model.OpérationId;
+import fr.craftinglabs.apps.yowie.core.model.OpérationService;
+import fr.craftinglabs.apps.yowie.core.model.Opérations;
+import fr.craftinglabs.apps.yowie.httpapi.routing.OpérationRoute;
 import httpapi.infrastructure.Env;
 
-import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.glassfish.grizzly.http.server.HttpServer;
-import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
-import org.glassfish.jersey.server.ResourceConfig;
+import static spark.Spark.*;
 
 /**
  * Main class.
@@ -19,35 +17,27 @@ public class YowieServer {
         
     private static final Integer DEFAULT_PORT = 5000;
 
-    public static HttpServer startServer(String hostname, Integer port, String appname) {
-        return GrizzlyHttpServerFactory.createHttpServer(URI.create(hostname + ":" + port + "/" + appname), createApp());
-    }
 
     public static void main(String[] args) throws InterruptedException {
+        port(Env.getPort(DEFAULT_PORT));
+        Opérations opérations = new InMemoryOpérationsRepository();
+        OpérationService service = new OpérationService(opérations);
+
+        get("/operations/:operationId", ((request, response) -> OpérationRoute.getOpérationByIdAsJSON(OpérationId.valueOf(request.params(":operationId")), service)));
+
+        post("/operations/", ((request, response) -> OpérationRoute.createOpération(request.body(), service)));
         
-        HttpServer server = startServer("http://0.0.0.0", Env.getPort(DEFAULT_PORT), "yowie");
-        
-        addShutdownHook(server);
+        addShutdownHook();
         Thread.currentThread().join();
     }
 
-    private static void addShutdownHook(HttpServer server) {
+    private static void addShutdownHook() {
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             @Override
             public void run() {
-                server.shutdown();
+                stop();
             }
         }, "shutdownHook"));
-    }
-
-    public static ResourceConfig createApp() {
-            
-            final Map<String, String> namespacePrefixMapper = new HashMap<String, String>();
-            namespacePrefixMapper.put("http://www.w3.org/2001/XMLSchema-instance", "xsi");
-             
-            return new ResourceConfig()
-                        .packages("fr.craftinglabs.apps.yowie.httpapi")
-                        .register(new InjectionBinder());
     }
 }
 

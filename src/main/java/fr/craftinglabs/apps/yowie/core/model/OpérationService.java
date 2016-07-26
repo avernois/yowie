@@ -2,11 +2,13 @@ package fr.craftinglabs.apps.yowie.core.model;
 
 import java.time.LocalDate;
 
-import javax.inject.Inject;
-
 public class OpérationService {
 
-    @Inject Opérations opérations;
+    Opérations opérations;
+
+    public OpérationService(Opérations opérations) {
+        this.opérations = opérations;
+    }
 
     public Opération get(OpérationId id) {
         return opérations.get(id);

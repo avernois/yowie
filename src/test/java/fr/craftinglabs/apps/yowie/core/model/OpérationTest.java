@@ -1,13 +1,13 @@
 package fr.craftinglabs.apps.yowie.core.model;
 
+import org.junit.Test;
+
+import java.time.LocalDate;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
-
-import java.time.LocalDate;
-
-import org.junit.Test;
 
 public class OpérationTest {
     

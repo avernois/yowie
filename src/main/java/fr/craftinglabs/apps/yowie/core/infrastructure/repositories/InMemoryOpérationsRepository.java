@@ -1,11 +1,11 @@
 package fr.craftinglabs.apps.yowie.core.infrastructure.repositories;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import fr.craftinglabs.apps.yowie.core.model.Opération;
 import fr.craftinglabs.apps.yowie.core.model.OpérationId;
 import fr.craftinglabs.apps.yowie.core.model.Opérations;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class InMemoryOpérationsRepository implements Opérations {
 
