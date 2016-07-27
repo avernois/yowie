@@ -1,6 +1,6 @@
 package fr.craftinglabs.apps.yowie.httpapi.routing;
 
-import fr.craftinglabs.apps.yowie.core.infrastructure.parsers.OpérationToJSON;
+import fr.craftinglabs.apps.yowie.httpapi.infrastructure.parsers.OpérationToJSON;
 import fr.craftinglabs.apps.yowie.core.model.*;
 import org.junit.Before;
 import org.junit.Test;
