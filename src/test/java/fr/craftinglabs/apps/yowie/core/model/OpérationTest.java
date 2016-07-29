@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 
+import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
@@ -33,7 +34,7 @@ public class OpérationTest {
         assertEquals(1200, opération.montant());
     }
     
-    @Test public void 
+    @Test public void
     should_have_a_date() {
         LocalDate date = LocalDate.parse("2014-11-17");
         Opération opération = new Opération(OpérationId.valueOf(1), date, 1200, "le libellé de l'opération");
@@ -48,13 +49,15 @@ public class OpérationTest {
         
         assertThat(opération.id(), is(not(0)));
     }
-    
-    @Test public void 
-    should_set_different_id_when_created_without() {
+
+    @Test public void
+    should_add_ventilation() {
         LocalDate date = LocalDate.parse("2014-11-17");
         Opération opération = new Opération(date, 1200, "le libellé de l'opération");
-        Opération anotherOpération = new Opération(date, 1500, "un autre libellé");
-        
-        assertThat(opération.id(), is(not(anotherOpération.id())));
+        Ventilation ventilation = new Ventilation(VentilationId.next(), 600, "catégorie");
+
+        opération.addVentilation(ventilation);
+
+        assertThat(opération.ventilations(), hasItems(ventilation));
     }
 }

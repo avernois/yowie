@@ -26,17 +26,17 @@ public class YowieServer {
         get("/operations/:operationId", ((request, response) -> OpérationRoute.getOpérationByIdAsJSON(OpérationId.valueOf(request.params(":operationId")), service)));
 
         post("/operations/", ((request, response) -> OpérationRoute.createOpération(request.body(), service)));
+
+        post("/operations/:operationId/ventilations/", ((request, response) -> OpérationRoute.addVentilationToOpération(OpérationId.valueOf(request.params(":operationId")), request.body(), service)));
         
         addShutdownHook();
         Thread.currentThread().join();
     }
 
     private static void addShutdownHook() {
-        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-            @Override
-            public void run() {
-                stop();
-            }
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            System.out.println("Exiting.");
+            stop();
         }, "shutdownHook"));
     }
 }
