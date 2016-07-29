@@ -1,10 +1,9 @@
-package fr.craftinglabs.apps.yowie.httpapi.infrastructure.parsers;
+package fr.craftinglabs.apps.yowie.core.infrastructure.parsers;
 
 import fr.craftinglabs.apps.yowie.core.model.Opération;
 import fr.craftinglabs.apps.yowie.core.model.OpérationId;
 import fr.craftinglabs.apps.yowie.core.model.Ventilation;
 import fr.craftinglabs.apps.yowie.core.model.VentilationId;
-import fr.craftinglabs.apps.yowie.httpapi.infrastructure.parsers.OpérationToJSON;
 import org.junit.Test;
 
 import java.time.LocalDate;
