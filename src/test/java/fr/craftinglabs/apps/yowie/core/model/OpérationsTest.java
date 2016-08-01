@@ -1,5 +1,6 @@
 package fr.craftinglabs.apps.yowie.core.model;
 
+import org.hamcrest.MatcherAssert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,7 +11,7 @@ import static org.junit.Assert.assertThat;
 
 abstract public class OpérationsTest {
     
-    public Opérations opérations;
+    protected Opérations opérations;
     
     @Before
     public void setup() {
@@ -27,6 +28,21 @@ abstract public class OpérationsTest {
         
         assertThat(actual, is(opération));
     }
-    
-    abstract public Opérations constructOpérations();
+
+    @Test
+    public void
+    should_store_and_get_by_id_an_opération_with_ventilation() {
+        OpérationId id = OpérationId.valueOf(2);
+        Opération opération = new Opération(id, LocalDate.parse("2014-11-17"), 1200, "libellé");
+        opération.addVentilation(new Ventilation(VentilationId.valueOf(1), 600, "catégorie"));
+        opération.addVentilation(new Ventilation(VentilationId.valueOf(2), 800, "catégorie"));
+
+        opérations.store(opération);
+
+        Opération actual = opérations.get(id);
+
+        assertThat(actual, is(opération));
+    }
+
+    abstract protected Opérations constructOpérations();
 }

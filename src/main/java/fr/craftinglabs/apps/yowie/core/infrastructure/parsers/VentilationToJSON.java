@@ -1,4 +1,4 @@
-package fr.craftinglabs.apps.yowie.httpapi.infrastructure.parsers;
+package fr.craftinglabs.apps.yowie.core.infrastructure.parsers;
 
 import fr.craftinglabs.apps.yowie.core.model.Ventilation;
 
