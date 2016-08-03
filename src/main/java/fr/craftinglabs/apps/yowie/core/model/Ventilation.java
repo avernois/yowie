@@ -3,9 +3,9 @@ package fr.craftinglabs.apps.yowie.core.model;
 public class Ventilation {
     private VentilationId id;
     private int montant;
-    private String catégorie;
+    private Catégorie catégorie;
 
-    public Ventilation(VentilationId id, int montant, String catégorie) {
+    public Ventilation(VentilationId id, int montant, Catégorie catégorie) {
 
         this.id = id;
         this.montant = montant;
@@ -16,7 +16,7 @@ public class Ventilation {
         return id;
     }
 
-    public String catégorie() {
+    public Catégorie catégorie() {
         return catégorie;
     }
 

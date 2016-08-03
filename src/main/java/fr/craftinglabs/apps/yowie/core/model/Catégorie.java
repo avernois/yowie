@@ -1,0 +1,52 @@
+package fr.craftinglabs.apps.yowie.core.model;
+
+public enum Catégorie {
+    TVA_SUR_HONORAIRES(CatégorieType.RECETTE),
+    HONORAIRES(CatégorieType.RECETTE.RECETTE),
+    GAINS_DIVERS(CatégorieType.RECETTE),
+    APPORTS_PERSONNELS(CatégorieType.RECETTE),
+    EMPRUNTS_CONTRACTÉS(CatégorieType.RECETTE),
+
+    PRÉLÉVEMENT_PERSONNELS(CatégorieType.DÉPENSE),
+    HONORAIRES_RÉTROCÉDÉS(CatégorieType.DÉPENSE),
+    ACHATS(CatégorieType.DÉPENSE),
+    SALAIRES_NETS_ET_AVANTAGES_NATURE(CatégorieType.DÉPENSE),
+    CHARGES_SOCIALES_SUR_SALAIRES(CatégorieType.DÉPENSE),
+    CET(CatégorieType.DÉPENSE),
+    AUTRES_IMPÔTS(CatégorieType.DÉPENSE),
+    CSG_DEDUCTIBLE(CatégorieType.DÉPENSE),
+    LOYER_ET_CHARGES_LOCATIVES(CatégorieType.DÉPENSE),
+    LOCATIONS_DE_MATÉRIELS_ET_MOBILIERS(CatégorieType.DÉPENSE),
+    ENTRETIENT_ET_RÉPARATION(CatégorieType.DÉPENSE),
+    PERSONNEL_INTÉRIMAIRE(CatégorieType.DÉPENSE),
+    PETIT_OUTILLAGE(CatégorieType.DÉPENSE),
+    CHAUFFAGE_EAU_GAZ(CatégorieType.DÉPENSE),
+    HONORAIRES_NE_CONSTITUANTS_PAS_RÉTROCESSIONS(CatégorieType.DÉPENSE),
+    PRIMES_ASSURANCES(CatégorieType.DÉPENSE),
+    FRAIS_VÉHICULES(CatégorieType.DÉPENSE),
+    AUTRES_FRAIS_DÉPLACEMENTS(CatégorieType.DÉPENSE),
+    CHARGES_SOCIALES_PERSONNELLES_OBLIGATOIRES(CatégorieType.DÉPENSE),
+    CHARGES_SOCIALES_PERSONNELLES_FACULTATIVES(CatégorieType.DÉPENSE),
+    FRAIS_DE_RÉCEPTION_REPRÉSENTATIONS_CONGRÈS(CatégorieType.DÉPENSE),
+    FOURNITURES_DE_BUREAU_DOCUMENTATION_CORRESPONDANCE_TÉLÉPHONE(CatégorieType.DÉPENSE),
+    FRAIS_ACTES_CONTENTIEUX(CatégorieType.DÉPENSE),
+    COTISATION_SYNDICALES_ET_PROFESSIONNELLES(CatégorieType.DÉPENSE),
+    FRAIS_FINANCIERS(CatégorieType.DÉPENSE),
+    AUTRES_FRAIS_DIVERS_DE_GESTION(CatégorieType.DÉPENSE),
+    TVA_PAYÉE(CatégorieType.DÉPENSE),
+    REMBOURSEMENT_ENPRUNTS_ACHAT_IMMOBILISATIONS(CatégorieType.DÉPENSE),
+    ACHAT_D_IMMOBILISATIONS(CatégorieType.DÉPENSE),
+    CSG_CRDS_NON_DÉDUCTIBLE(CatégorieType.DÉPENSE),
+    TVA_RÉCUPÉRABLE(CatégorieType.DÉPENSE);
+
+    private final CatégorieType recette;
+
+
+    Catégorie(CatégorieType type) {
+        this.recette = type;
+    }
+}
+
+enum CatégorieType {
+    RECETTE, DÉPENSE
+}

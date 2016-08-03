@@ -54,7 +54,7 @@ public class OpérationTest {
     should_add_ventilation() {
         LocalDate date = LocalDate.parse("2014-11-17");
         Opération opération = new Opération(date, 1200, "le libellé de l'opération");
-        Ventilation ventilation = new Ventilation(VentilationId.next(), 600, "catégorie");
+        Ventilation ventilation = new Ventilation(VentilationId.next(), 600, Catégorie.ACHATS);
 
         opération.addVentilation(ventilation);
 

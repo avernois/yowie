@@ -61,11 +61,11 @@ public class OpérationRouteTest {
     should_add_a_ventilation_to_an_opération() {
         Opération opération = new Opération(OpérationId.valueOf(2), LocalDate.parse("2014-11-17"), 1400, "libellé");
         when(service.get(opération.id())).thenReturn(opération);
-        Ventilation ventilation = new Ventilation(VentilationId.next(), 600, "a_catégorie");
+        Ventilation ventilation = new Ventilation(VentilationId.next(), 600, Catégorie.ACHATS);
         when(service.addVentilation(opération.id(), ventilation.montant(), ventilation.catégorie())).thenReturn(ventilation);
 
-        OpérationRoute.addVentilationToOpération(OpérationId.valueOf(2), "{\"montant\":600,\"catégorie\":\"a_catégorie\"}", service);
+        OpérationRoute.addVentilationToOpération(OpérationId.valueOf(2), "{\"montant\":600,\"catégorie\":\"ACHATS\"}", service);
 
-        verify(service).addVentilation(OpérationId.valueOf("2"), 600, "a_catégorie");
+        verify(service).addVentilation(OpérationId.valueOf("2"), 600, Catégorie.ACHATS);
     }
 }

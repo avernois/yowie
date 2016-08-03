@@ -34,8 +34,8 @@ abstract public class OpérationsTest {
     should_store_and_get_by_id_an_opération_with_ventilation() {
         OpérationId id = OpérationId.valueOf(2);
         Opération opération = new Opération(id, LocalDate.parse("2014-11-17"), 1200, "libellé");
-        opération.addVentilation(new Ventilation(VentilationId.valueOf(1), 600, "catégorie"));
-        opération.addVentilation(new Ventilation(VentilationId.valueOf(2), 800, "catégorie"));
+        opération.addVentilation(new Ventilation(VentilationId.valueOf(1), 600, Catégorie.ACHATS));
+        opération.addVentilation(new Ventilation(VentilationId.valueOf(2), 800, Catégorie.ACHATS));
 
         opérations.store(opération);
 

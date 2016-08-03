@@ -2,10 +2,7 @@ package fr.craftinglabs.apps.yowie.httpapi.routing;
 
 import fr.craftinglabs.apps.yowie.core.infrastructure.parsers.OpérationToJSON;
 import fr.craftinglabs.apps.yowie.core.infrastructure.parsers.VentilationToJSON;
-import fr.craftinglabs.apps.yowie.core.model.Opération;
-import fr.craftinglabs.apps.yowie.core.model.OpérationId;
-import fr.craftinglabs.apps.yowie.core.model.OpérationService;
-import fr.craftinglabs.apps.yowie.core.model.Ventilation;
+import fr.craftinglabs.apps.yowie.core.model.*;
 
 import org.json.JSONObject;
 
@@ -48,8 +45,8 @@ class VentilationParameters {
     public int montant() {
         return montant;
     }
-    public String catégorie() {
-        return catégorie;
+    public Catégorie catégorie() {
+        return Catégorie.valueOf(catégorie);
     }
 }
 

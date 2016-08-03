@@ -1,9 +1,6 @@
 package fr.craftinglabs.apps.yowie.core.infrastructure.parsers;
 
-import fr.craftinglabs.apps.yowie.core.model.Opération;
-import fr.craftinglabs.apps.yowie.core.model.OpérationId;
-import fr.craftinglabs.apps.yowie.core.model.Ventilation;
-import fr.craftinglabs.apps.yowie.core.model.VentilationId;
+import fr.craftinglabs.apps.yowie.core.model.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -36,7 +33,7 @@ public class JsonToOpération {
         VentilationId ventilationId = VentilationId.valueOf(ventilationJSON.getInt("id"));
         String ventilationCatégorie = ventilationJSON.getString("catégorie");
 
-        return new Ventilation(ventilationId, ventilationMontant, ventilationCatégorie);
+        return new Ventilation(ventilationId, ventilationMontant, Catégorie.valueOf(ventilationCatégorie));
     }
 }
 

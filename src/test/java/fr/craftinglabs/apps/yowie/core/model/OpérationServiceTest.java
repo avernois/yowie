@@ -68,7 +68,7 @@ public class OpérationServiceTest {
         Opération opération = new Opération(OpérationId.valueOf(2), LocalDate.parse("2015-02-02"), 1200, "libellé");
         when(opérations.get(opération.id())).thenReturn(opération);
 
-        Ventilation addedVentilation = service.addVentilation(opération.id(), 600, "catégorie");
+        Ventilation addedVentilation = service.addVentilation(opération.id(), 600, Catégorie.ACHATS);
 
         assertThat(opération.ventilations(), hasItems(addedVentilation));
         verify(opérations).store(opération);
@@ -79,9 +79,9 @@ public class OpérationServiceTest {
         Opération opération = new Opération(OpérationId.valueOf(2), LocalDate.parse("2015-02-02"), 1200, "libellé");
         when(opérations.get(opération.id())).thenReturn(opération);
 
-        Ventilation addedVentilation = service.addVentilation(opération.id(), 600, "catégorie");
+        Ventilation addedVentilation = service.addVentilation(opération.id(), 600, Catégorie.ACHATS);
 
-        assertThat(addedVentilation.catégorie(), is("catégorie"));
+        assertThat(addedVentilation.catégorie(), is(Catégorie.ACHATS));
         assertThat(addedVentilation.montant(), is(600));
     }
 }
